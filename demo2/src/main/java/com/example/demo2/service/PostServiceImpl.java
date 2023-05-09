@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getPostsByFollowedUsers(User user) {
-        return null;
+        return  null;
     }
 
     @Autowired
