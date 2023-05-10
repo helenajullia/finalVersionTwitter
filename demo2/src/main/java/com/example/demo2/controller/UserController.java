@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping(value = "/users/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> searchUsers(@RequestParam String searchTerm) {
         return userService.searchUsers(searchTerm);
-    }//   localhost:8080/users/search?searchTerm=Helena
+    }//   localhost:8081/users/search?searchTerm=Helena
 
     @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
     public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
