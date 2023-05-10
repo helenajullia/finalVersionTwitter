@@ -31,7 +31,12 @@ public class UserController {
     @GetMapping(value = "/users/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> searchUsers(@RequestParam String searchTerm) {
         return userService.searchUsers(searchTerm);
-    }//   localhost:8080/users/search?searchTerm=Helena
+    }//   localhost:8081/users/search?searchTerm=Helena
+
+    @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
+    public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
+        userService.followUser(followerUsername, followingUsername);
+    }//localhost:8081/users/helena-jullia/follow/marius-sebastian
 
     @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_XML_VALUE)
     public User getUserByUsername(@PathVariable String username) {
@@ -63,10 +68,7 @@ public class UserController {
         userService.deleteUser(username);
     }
 
-    @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
-    public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
-        userService.followUser(followerUsername, followingUsername);
-    }
+
 
     @PostMapping("/users/{followerUsername}/unfollow/{followingUsername}")
     public void unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {

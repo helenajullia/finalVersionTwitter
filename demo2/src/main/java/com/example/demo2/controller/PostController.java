@@ -20,7 +20,7 @@ public class PostController {
     @PostMapping("/posts")
     public void createPost(@RequestBody Post post) {
         postService.createPost(post);
-    }
+    }//
 
     @Autowired
     private UserRepository userRepository;
