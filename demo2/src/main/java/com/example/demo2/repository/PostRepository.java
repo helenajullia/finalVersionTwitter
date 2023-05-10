@@ -39,13 +39,12 @@ public class PostRepository {
     public List<Post> getPostsByFollowedUsers(User user) {
         List<Post> followedPosts = new ArrayList<>();
         List<User> followedUsers = user.getFollowing();
+
         for (User followedUser : followedUsers) {
-            for (Post post : posts) {
-                if (post.getUser().equals(followedUser)) {
-                    followedPosts.add(post);
-                }
-            }
+            List<Post> postsByUser = getPostsByUser(followedUser);
+            followedPosts.addAll(postsByUser);
         }
+
         return followedPosts;
     }
 
