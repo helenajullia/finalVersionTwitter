@@ -51,4 +51,14 @@ public class PostRepository {
     public List<Post> getAllPosts() {
         return posts;
     }
+
+    public Post getPostByContent(String postContent) {
+        for (Post post : posts) {
+            // Implement your own logic to identify the post (e.g., using the content or other fields)
+            if (post.getContent().equals(postContent)) {
+                return post;
+            }
+        }
+        return null;
+    }
 }

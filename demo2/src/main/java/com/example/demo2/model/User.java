@@ -67,13 +67,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "\nUser{" +
+        return "User{" +
                 "username=" + username +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                '}'+'\'';
+                '}';
     }
 
     private List<User> following;

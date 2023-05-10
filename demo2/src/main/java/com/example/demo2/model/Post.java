@@ -4,6 +4,8 @@ import com.example.demo2.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Post {
     private String content;
@@ -36,11 +38,13 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public Post(String content, String username, LocalDateTime timestamp, User user) {
+    public Post(String content, String username, LocalDateTime timestamp, User user,List<String> likes) {
         this.content = content;
         this.username = username;
         this.timestamp = timestamp;
         this.user=user;
+        //this.likes = new ArrayList<>();
+        this.likes = likes;
     }
 
     public User getUser() {
@@ -51,4 +55,13 @@ public class Post {
         this.user = user;
     }
 
+    private List<String> likes;
+
+    public List<String> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<String> likes) {
+        this.likes = likes;
+    }
 }

@@ -30,6 +30,7 @@ public class PostServiceImpl implements PostService {
 
         for (Post post : postRepository.getAllPosts()) {
             if (post.getUser().getUsername().equals(user.getUsername())) {
+                post.setLikes(post.getLikes()); // Set the list of likes for the post
                 postsByUser.add(post);
             }
         }
@@ -39,7 +40,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getPostsByFollowedUsers(User user) {
-        return null;
+        return  null;
     }
 
     @Autowired
@@ -51,11 +52,17 @@ public class PostServiceImpl implements PostService {
 
         for (User followedUser : followedUsers) {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
+            for (Post post : postsByUser) {
+                post.setLikes(post.getLikes()); // Set the list of likes for each post
+            }
             postsByFollowedUser.addAll(postsByUser);
         }
 
         return postsByFollowedUser;
     }
 
+    public Post getPostByContent(String postContent) {
+        return postRepository.getPostByContent(postContent);
+    }
 
 }
