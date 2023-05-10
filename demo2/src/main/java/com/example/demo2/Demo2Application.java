@@ -20,7 +20,7 @@ public class Demo2Application {
 
 		UserRepository userRepository = context.getBean(UserRepository.class);
 
-		// Create users
+		/*// Create users
 		User user1 = new User("helena-jullia", "Helena", "Pastore", "helena.pastore@yahoo.com", "parola1");
 		userRepository.createUser(user1);
 
@@ -33,12 +33,9 @@ public class Demo2Application {
 
 		User retrievedUser2 = userRepository.getUserByUsername("banda-daniela");
 		System.out.println("User 2: " + retrievedUser2);
-
+		*/
 
 		UserRepository userService = context.getBean(UserRepository.class); // Instantiate userService
-
-		userService.followUser("helena-jullia", "banda-daniela");
-		//userService.followUser("banda-daniela", "helena-jullia");
 
 
 	}

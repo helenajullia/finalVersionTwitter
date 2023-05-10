@@ -17,7 +17,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/posts")
+    @PostMapping(value="/posts")
     public void createPost(@RequestBody Post post) {
         postService.createPost(post);
     }
@@ -29,10 +29,19 @@ public class PostController {
         User user = userRepository.getUserByUsername(username);
         return postService.getPostsByUser(user);
     }
+    //working
 
     @GetMapping("/users/{username}/feed")
     public List<Post> getFeed(@PathVariable String username) {
         User user = userRepository.getUserByUsername(username);
         return postService.getPostsByFollowedUsers(user);
+    }
+
+    @PostMapping(value="/posts/like/{username}")
+    public void likePost(@RequestBody String postContent, @PathVariable String username) {
+        Post post = postService.getPostByContent(postContent);
+        if (post != null) {
+            post.getLikes().add(username);
+        }
     }
 }

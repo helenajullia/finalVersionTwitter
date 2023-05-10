@@ -33,6 +33,12 @@ public class UserController {
         return userService.searchUsers(searchTerm);
     }//   localhost:8080/users/search?searchTerm=Helena
 
+    @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
+    public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
+        userService.followUser(followerUsername, followingUsername);
+    }
+
+
     @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_XML_VALUE)
     public User getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
@@ -43,10 +49,10 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
-    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void registerUser(@RequestBody User user) {
         userService.registerUser(user);
-    }
+    }*/
 
     @PutMapping(value = "/users/{username}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUser(@PathVariable String username, @RequestBody User user) {
@@ -58,15 +64,11 @@ public class UserController {
         userService.patchUser(username, partialUser);
     }
 
-    @DeleteMapping(value = "/users/{username}")
+    @DeleteMapping(value = "/users/delete/{username}")
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }
 
-    @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
-    public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
-        userService.followUser(followerUsername, followingUsername);
-    }
 
     @PostMapping("/users/{followerUsername}/unfollow/{followingUsername}")
     public void unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
@@ -77,5 +79,8 @@ public class UserController {
     public List<User> getFollowedUsers(@PathVariable String followerUsername) {
         return userService.getFollowedUsers(followerUsername);
     }
+
+
+
 
 }
