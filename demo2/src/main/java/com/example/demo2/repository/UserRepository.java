@@ -10,6 +10,7 @@ public class UserRepository {
 
 
     private Map<String, User> users;
+    //private List<User> users;
 
     public UserRepository() {
         users = new HashMap<>();
@@ -64,6 +65,7 @@ public class UserRepository {
 
         if (follower != null && following != null) {
             follower.getFollowing().remove(following.getUsername());
+
         }
     }
 

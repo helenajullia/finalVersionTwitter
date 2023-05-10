@@ -77,6 +77,7 @@ public class User {
     }
 
     private List<User> following;
+    private List<User> followers;
     private List<Post> posts;
 
     public List<User> getFollowing() {
@@ -88,6 +89,17 @@ public class User {
 
     public void setFollowing(List<User> following) {
         this.following = following;
+    }
+
+    public List<User> getFollowers() {
+        if (followers == null) {
+            followers = new ArrayList<>(); // Initialize the list if it is null
+        }
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
     }
 
 }

@@ -36,10 +36,14 @@ public class UserController {
     @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
     public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
         userService.followUser(followerUsername, followingUsername);
+    }//localhost:8081/users/helena-jullia/follow/marius-sebastian
+
+    @GetMapping("/users/{followerUsername}/followed-users")
+    public List<User> getFollowedUsers(@PathVariable String followerUsername) {
+        return userService.getFollowedUsers(followerUsername);
     }
 
-
-    @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_XML_VALUE)
+   /* @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_XML_VALUE)
     public User getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
@@ -64,7 +68,9 @@ public class UserController {
         userService.patchUser(username, partialUser);
     }
 
-    @DeleteMapping(value = "/users/delete/{username}")
+
+    @DeleteMapping(value = "/users/unregister/{username}")
+
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }
@@ -75,10 +81,7 @@ public class UserController {
         userService.unfollowUser(followerUsername, followingUsername);
     }
 
-    @GetMapping("/users/{followerUsername}/followed-users")
-    public List<User> getFollowedUsers(@PathVariable String followerUsername) {
-        return userService.getFollowedUsers(followerUsername);
-    }
+
 
 
 

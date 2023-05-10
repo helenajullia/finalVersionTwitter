@@ -32,14 +32,15 @@ public class Demo2Application {
 		System.out.println("User 1: " + retrievedUser1);
 
 		User retrievedUser2 = userRepository.getUserByUsername("banda-daniela");
-		System.out.println("User 2: " + retrievedUser2);
-		*/
+
+		System.out.println("User 2: " + retrievedUser2);*/
+
 
 		UserRepository userService = context.getBean(UserRepository.class); // Instantiate userService
 
+		//userService.followUser("helena-jullia", "banda-daniela");
+		//userService.followUser("banda-daniela", "helena-jullia");
 
 	}
-
-
 
 }
