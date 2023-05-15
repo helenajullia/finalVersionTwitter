@@ -48,6 +48,18 @@ public class PostRepository {
         return followedPosts;
     }
 
+    public List<Post> getFeed(User user) {
+        List<Post> followedPosts = new ArrayList<>();
+        List<User> followedUsers = user.getFollowing();
+
+        for (User followedUser : followedUsers) {
+            List<Post> postsByUser = getPostsByUser(followedUser);
+            followedPosts.addAll(postsByUser);
+        }
+
+        return followedPosts;
+    }
+
     public List<Post> getAllPosts() {
         return posts;
     }

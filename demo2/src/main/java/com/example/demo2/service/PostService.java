@@ -9,4 +9,6 @@ public interface PostService {
     void createPost(Post post);
     List<Post> getPostsByUser(User user);
     List<Post> getPostsByFollowedUsers(User user);
+
+    List<Post> getFeed(User user);
 }

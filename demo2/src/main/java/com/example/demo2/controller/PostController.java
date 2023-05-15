@@ -35,11 +35,11 @@ public class PostController {
         return postService.getPostsByUser(user);
     }
 
-    @GetMapping("/users/{username}/feed")
+    /*@GetMapping("/users/{username}/feed")
     public List<Post> getFeed(@PathVariable String username) {
         User user = userRepository.getUserByUsername(username);
         return postService.getPostsByFollowedUsers(user);
-    }
+    }*/
     @Autowired
     private UserService userService;
     @Autowired
@@ -57,4 +57,19 @@ public class PostController {
 
         return postsByFollowedUser;
     }
+
+    @GetMapping("users/{username}/feed")
+    public List<Post> getFeed(@PathVariable("username") String username) {
+        List<Post> postsByFollowedUser = new ArrayList<>();
+
+        List<User> followedUsers = userService.getFollowedUsers(username);
+
+        for (User followedUser : followedUsers) {
+            List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
+            postsByFollowedUser.addAll(postsByUser);
+        }
+
+        return postsByFollowedUser;
+    }
+
 }
