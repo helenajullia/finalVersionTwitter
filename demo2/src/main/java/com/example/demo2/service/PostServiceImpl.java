@@ -57,17 +57,8 @@ public class PostServiceImpl implements PostService {
         return postsByFollowedUser;
     }
 
-    public List<Post> getFeed(User user) {
-        List<Post> postsByFollowedUser = new ArrayList<>();
-
-        List<User> followedUsers = userService.getFollowedUsers(user.getUsername());
-
-        for (User followedUser : followedUsers) {
-            List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
-            postsByFollowedUser.addAll(postsByUser);
-        }
-
-        return postsByFollowedUser;
+    public Post getPostByContent(String postContent) {
+        return postRepository.getPostByContent(postContent);
     }
 
 }

@@ -22,7 +22,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/posts")
+    @PostMapping(value="/posts")
     public void createPost(@RequestBody Post post) {
         postService.createPost(post);
     }//
@@ -34,6 +34,7 @@ public class PostController {
         User user = userRepository.getUserByUsername(username);
         return postService.getPostsByUser(user);
     }
+    //working
 
     /*@GetMapping("/users/{username}/feed")
     public List<Post> getFeed(@PathVariable String username) {
@@ -56,6 +57,7 @@ public class PostController {
         }
 
         return postsByFollowedUser;
+
     }
 
     @GetMapping("users/{username}/feed")

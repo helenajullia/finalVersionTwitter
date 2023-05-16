@@ -70,7 +70,12 @@ public class UserServiceImpl implements UserService {
 
 
     public void followUser(String followerUsername, String followingUsername) {
-        userRepository.followUser(followerUsername, followingUsername);
+        User follower = userRepository.getUserByUsername(followerUsername);
+        User following = userRepository.getUserByUsername(followingUsername);
+
+        if (follower != null && following != null) {
+            follower.getFollowing().add(following); // Add the followed user to the follower's following list
+        }
     }
 
     public void unfollowUser(String followerUsername, String followingUsername) {

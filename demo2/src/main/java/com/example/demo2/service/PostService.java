@@ -10,5 +10,5 @@ public interface PostService {
     List<Post> getPostsByUser(User user);
     List<Post> getPostsByFollowedUsers(User user);
 
-    List<Post> getFeed(User user);
+    Post getPostByContent(String postContent);
 }

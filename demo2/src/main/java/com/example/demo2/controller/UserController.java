@@ -53,7 +53,7 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
-    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void registerUser(@RequestBody User user) {
         userService.registerUser(user);
     }*/
@@ -68,7 +68,9 @@ public class UserController {
         userService.patchUser(username, partialUser);
     }
 
+
     @DeleteMapping(value = "/users/unregister/{username}")
+
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }
@@ -78,6 +80,9 @@ public class UserController {
     public void unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
         userService.unfollowUser(followerUsername, followingUsername);
     }
+
+
+
 
 
 
