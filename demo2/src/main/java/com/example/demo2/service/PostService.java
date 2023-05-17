@@ -10,7 +10,6 @@ public interface PostService {
     void createPost(Post post);
     List<Post> getPostsByUser(User user);
     List<Post> getPostsByFollowedUsers(User user);
-
     Post getPostById(String postId);
     void likePost(String postId, String username);
 }

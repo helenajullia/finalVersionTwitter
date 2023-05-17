@@ -8,7 +8,7 @@ public class Reply {
     private LocalDateTime timestamp;
     private User user;
     private Post post;
-    private boolean isPublic;//// Flag to indicate if the reply is public or private
+    private Boolean isPublic;
 
     public String getContent() {
         return content;
@@ -66,5 +66,4 @@ public class Reply {
     public Post getPost() {
         return post;
     }
-
 }

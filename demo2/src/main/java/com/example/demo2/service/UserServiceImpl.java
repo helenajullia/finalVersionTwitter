@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
                 searchResults.add(user);
             }
         }
-
         return searchResults;
     }
 
@@ -97,9 +96,6 @@ public class UserServiceImpl implements UserService {
                 followedUsers.add(followedUser);
             }
         }
-
         return followedUsers;
     }
-
-
 }

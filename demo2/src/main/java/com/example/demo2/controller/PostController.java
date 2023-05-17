@@ -15,8 +15,12 @@ import java.util.List;
 @RestController
 public class PostController {
     private final PostService postService;
-
-
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PostRepository postRepository;
 
     public PostController(PostService postService) {
         this.postService = postService;
@@ -25,26 +29,14 @@ public class PostController {
     @PostMapping(value="/posts")
     public void createPost(@RequestBody Post post) {
         postService.createPost(post);
-    }//
+    }
 
-    @Autowired
-    private UserRepository userRepository;
     @GetMapping("/users/{username}/posts")
     public List<Post> getPostsByUser(@PathVariable String username) {
         User user = userRepository.getUserByUsername(username);
         return postService.getPostsByUser(user);
     }
-    //working
 
-    /*@GetMapping("/users/{username}/feed")
-    public List<Post> getFeed(@PathVariable String username) {
-        User user = userRepository.getUserByUsername(username);
-        return postService.getPostsByFollowedUsers(user);
-    }*/
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PostRepository postRepository;
     @GetMapping("/posts/followed/{username}")
     public List<Post> getPostsByFollowedUser(@PathVariable("username") String username) {
         List<Post> postsByFollowedUser = new ArrayList<>();
@@ -55,9 +47,7 @@ public class PostController {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
             postsByFollowedUser.addAll(postsByUser);
         }
-
         return postsByFollowedUser;
-
     }
 
     @GetMapping("users/{username}/feed")
@@ -70,7 +60,6 @@ public class PostController {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
             postsByFollowedUser.addAll(postsByUser);
         }
-
         return postsByFollowedUser;
     }
 
@@ -78,5 +67,4 @@ public class PostController {
     public void likePost(@PathVariable String postId,@PathVariable String username) {
         postService.likePost(postId,username);
     }
-
 }

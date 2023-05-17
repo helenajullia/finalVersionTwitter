@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public class PostRepository {
-    //private PostRepository postRepository;
     private List<Post> posts;
 
     public PostRepository() {
@@ -45,7 +44,6 @@ public class PostRepository {
             List<Post> postsByUser = getPostsByUser(followedUser);
             followedPosts.addAll(postsByUser);
         }
-
         return followedPosts;
     }
 
@@ -73,8 +71,6 @@ public class PostRepository {
         }
         return null;
     }
-
-
 
     public List<String> getLikesByPostId(String postId) {
         Post post = getPostById(postId);

@@ -12,9 +12,7 @@ public class Post {
     private String content;
     private String username;
     private LocalDateTime timestamp;
-
     private User user;
-
     private List<String> likes;
     public String getContent() {
         return content;
@@ -61,17 +59,12 @@ public class Post {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
-
-
     public List<String> getLikes() {
         return likes;
     }
-
     public void setLikes(List<String> likes) {
         this.likes = likes;
     }

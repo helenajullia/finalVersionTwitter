@@ -14,7 +14,8 @@ package com.example.demo2.service;
 
 @Service
 public class PostServiceImpl implements PostService {
-
+    @Autowired
+    private UserService userService;
     private final PostRepository postRepository;
 
     public PostServiceImpl(PostRepository postRepository) {
@@ -42,8 +43,7 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-    @Autowired
-    private UserService userService;
+
     public List<Post> getPostsByFollowedUser(User user) {
         List<Post> postsByFollowedUser = new ArrayList<>();
 
@@ -56,7 +56,6 @@ public class PostServiceImpl implements PostService {
 
         return postsByFollowedUser;
     }
-
     public Post getPostById(String postId) {
         return postRepository.getPostById(postId);
     }
