@@ -74,4 +74,9 @@ public class PostController {
         return postsByFollowedUser;
     }
 
+    @PutMapping("/posts/{postId}/{username}/like")
+    public void likePost(@PathVariable String postId,@PathVariable String username) {
+        postService.likePost(postId,username);
+    }
+
 }

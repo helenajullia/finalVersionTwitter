@@ -57,8 +57,19 @@ public class PostServiceImpl implements PostService {
         return postsByFollowedUser;
     }
 
-    public Post getPostByContent(String postContent) {
-        return postRepository.getPostByContent(postContent);
+    public Post getPostById(String postId) {
+        return postRepository.getPostById(postId);
     }
 
+    @Override
+    public void likePost(String postId, String username) {
+        Post post = postRepository.getPostById(postId);
+        if (post != null) {
+            List<String> likes = post.getLikes();
+            likes.add(username);
+            // Save the updated likes to the post
+            post.setLikes(likes);
+            postRepository.updatePost(post);
+        }
+    }
 }

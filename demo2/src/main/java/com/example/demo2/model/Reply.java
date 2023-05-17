@@ -7,8 +7,8 @@ public class Reply {
     private String content;
     private LocalDateTime timestamp;
     private User user;
-
     private Post post;
+    private boolean isPublic;//// Flag to indicate if the reply is public or private
 
     public String getContent() {
         return content;
@@ -46,12 +46,21 @@ public class Reply {
         this.post = post;
     }
 
-    public Reply(String replyId, String content, LocalDateTime timestamp, User user, Post post) {
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public Reply(String replyId, String content, LocalDateTime timestamp, User user, Post post, Boolean isPublic) {
         this.replyId = replyId;
         this.content = content;
         this.timestamp = timestamp;
         this.user = user;
         this.post = post;
+        this.isPublic=isPublic;
     }
 
     public Post getPost() {

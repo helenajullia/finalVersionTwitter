@@ -6,25 +6,32 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Repository
 public class ReplyRepository {
     private List<Reply> replies;
+    private PostRepository postRepository;
 
-    public ReplyRepository() {
+    public ReplyRepository(PostRepository postRepository) {
         this.replies = new ArrayList<>();
+        this.postRepository = postRepository;
     }
 
     public void createReply(Reply reply) {
         replies.add(reply);
     }
 
-    public List<Reply> getRepliesByPost(Post post) {
+    public List<Reply> getRepliesByPostId(String postId) {
         List<Reply> postReplies = new ArrayList<>();
         for (Reply reply : replies) {
-            if (reply.getPost().equals(post)) {
+            if (reply.getPost().getId().equals(postId)) {
                 postReplies.add(reply);
             }
         }
         return postReplies;
+    }
+
+    public Post getPostById(String postId) {
+        return postRepository.getPostById(postId);
     }
 }
