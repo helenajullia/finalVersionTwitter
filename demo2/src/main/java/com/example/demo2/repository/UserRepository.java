@@ -7,10 +7,7 @@ import java.util.*;
 
 @Repository
 public class UserRepository {
-
-
     private Map<String, User> users;
-    //private List<User> users;
 
     public UserRepository() {
         users = new HashMap<>();
@@ -77,7 +74,6 @@ public class UserRepository {
                 followers.add(user.getUsername());
             }
         }
-
         return followers;
     }
 }

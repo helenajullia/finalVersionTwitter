@@ -14,7 +14,8 @@ package com.example.demo2.service;
 
 @Service
 public class PostServiceImpl implements PostService {
-
+    @Autowired
+    private UserService userService;
     private final PostRepository postRepository;
 
     public PostServiceImpl(PostRepository postRepository) {
@@ -30,7 +31,6 @@ public class PostServiceImpl implements PostService {
 
         for (Post post : postRepository.getAllPosts()) {
             if (post.getUser().getUsername().equals(user.getUsername())) {
-                post.setLikes(post.getLikes()); // Set the list of likes for the post
                 postsByUser.add(post);
             }
         }
@@ -40,11 +40,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getPostsByFollowedUsers(User user) {
-        return  null;
+        return null;
     }
 
-    @Autowired
-    private UserService userService;
+
     public List<Post> getPostsByFollowedUser(User user) {
         List<Post> postsByFollowedUser = new ArrayList<>();
 
@@ -52,17 +51,24 @@ public class PostServiceImpl implements PostService {
 
         for (User followedUser : followedUsers) {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
-            for (Post post : postsByUser) {
-                post.setLikes(post.getLikes()); // Set the list of likes for each post
-            }
             postsByFollowedUser.addAll(postsByUser);
         }
 
         return postsByFollowedUser;
     }
-
-    public Post getPostByContent(String postContent) {
-        return postRepository.getPostByContent(postContent);
+    public Post getPostById(String postId) {
+        return postRepository.getPostById(postId);
     }
 
+    @Override
+    public void likePost(String postId, String username) {
+        Post post = postRepository.getPostById(postId);
+        if (post != null) {
+            List<String> likes = post.getLikes();
+            likes.add(username);
+            // Save the updated likes to the post
+            post.setLikes(likes);
+            postRepository.updatePost(post);
+        }
+    }
 }

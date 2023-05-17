@@ -12,7 +12,6 @@ import java.util.Map;
 public class UserController {
 
     private UserService userService;
-
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -36,7 +35,7 @@ public class UserController {
     @PostMapping("/users/{followerUsername}/follow/{followingUsername}")
     public void followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
         userService.followUser(followerUsername, followingUsername);
-    }//localhost:8081/users/helena-jullia/follow/marius-sebastian
+    }//localhost:8081/users/helenajullia/follow/mariussebastian
 
     @GetMapping("/users/{followerUsername}/followed-users")
     public List<User> getFollowedUsers(@PathVariable String followerUsername) {
@@ -70,7 +69,6 @@ public class UserController {
 
 
     @DeleteMapping(value = "/users/unregister/{username}")
-
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }
@@ -80,10 +78,4 @@ public class UserController {
     public void unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
         userService.unfollowUser(followerUsername, followingUsername);
     }
-
-
-
-
-
-
 }

@@ -4,18 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private List<User> following;
+    private List<User> followers;
+    private List<Post> posts;
 
     private String username;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String password;
-
-
 
     public String getUsername() {
         return username;
@@ -76,9 +73,6 @@ public class User {
                 '}';
     }
 
-    private List<User> following;
-    private List<User> followers;
-    private List<Post> posts;
 
     public List<User> getFollowing() {
         if (following == null) {
@@ -101,5 +95,4 @@ public class User {
     public void setFollowers(List<User> followers) {
         this.followers = followers;
     }
-
 }

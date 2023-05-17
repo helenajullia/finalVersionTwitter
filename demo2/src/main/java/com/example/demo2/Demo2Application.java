@@ -41,6 +41,9 @@ public class Demo2Application {
 		//userService.followUser("helena-jullia", "banda-daniela");
 		//userService.followUser("banda-daniela", "helena-jullia");
 
+
 	}
+
+
 
 }

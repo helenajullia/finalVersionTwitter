@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
+    private String id;
     private String content;
     private String username;
     private LocalDateTime timestamp;
-
     private User user;
-
+    private List<String> likes;
     public String getContent() {
         return content;
     }
@@ -38,7 +38,16 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public Post(String content, String username, LocalDateTime timestamp, User user,List<String> likes) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Post(String id, String content, String username, LocalDateTime timestamp, User user, List<String> likes) {
+        this.id=id;
         this.content = content;
         this.username = username;
         this.timestamp = timestamp;
@@ -50,17 +59,12 @@ public class Post {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
-    private List<String> likes;
-
     public List<String> getLikes() {
         return likes;
     }
-
     public void setLikes(List<String> likes) {
         this.likes = likes;
     }
