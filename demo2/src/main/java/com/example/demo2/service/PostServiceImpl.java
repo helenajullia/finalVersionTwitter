@@ -10,6 +10,7 @@ package com.example.demo2.service;
         import com.example.demo2.service.PostService;
 
         import java.util.ArrayList;
+        import java.util.Collections;
         import java.util.List;
 
 @Service
@@ -26,15 +27,25 @@ public class PostServiceImpl implements PostService {
         postRepository.createPost(post);
     }
 
-    public List<Post> getPostsByUser(User user) {
+    public List<String> getLikesByPostId(String postId) {
+        Post post = getPostById(postId);
+        if (post != null) {
+            return post.getLikes();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    public List<Post> getPostsByUser(String username) {
         List<Post> postsByUser = new ArrayList<>();
 
         for (Post post : postRepository.getAllPosts()) {
-            if (post.getUser().getUsername().equals(user.getUsername())) {
+            if (post.getUsername().equals(username)) {
+                post.setUsername(username); // Set the username directly
+                post.setLikes(getLikesByPostId(post.getId()));
                 postsByUser.add(post);
             }
         }
-
         return postsByUser;
     }
 
@@ -44,12 +55,12 @@ public class PostServiceImpl implements PostService {
     }
 
 
-    public List<Post> getPostsByFollowedUser(User user) {
+    public List<Post> getPostsByFollowedUser(String username) {
         List<Post> postsByFollowedUser = new ArrayList<>();
 
-        List<User> followedUsers = userService.getFollowedUsers(user.getUsername());
+        List<String> followedUsers = userService.getFollowedUsers(username);
 
-        for (User followedUser : followedUsers) {
+        for (String followedUser : followedUsers) {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
             postsByFollowedUser.addAll(postsByUser);
         }

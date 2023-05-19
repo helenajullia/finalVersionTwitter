@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         User following = userRepository.getUserByUsername(followingUsername);
 
         if (follower != null && following != null) {
-            follower.getFollowing().add(following); // Add the followed user to the follower's following list
+            follower.getFollowing().add(followingUsername); // Add the followed user to the follower's following list
         }
     }
 
@@ -85,16 +85,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.getFollowers(username);
     }
 
-    public List<User> getFollowedUsers(String username) {
+    public List<String> getFollowedUsers(String username) {
         User user = userRepository.getUserByUsername(username);
-        List<User> followingUsers = user.getFollowing();
-        List<User> followedUsers = new ArrayList<>();
+        List<String> followingUsers = user.getFollowing();
+        List<String> followedUsers = new ArrayList<>();
 
-        for (User followingUser : followingUsers) {
-            User followedUser = userRepository.getUserByUsername(followingUser.getUsername());
-            if (followedUser != null) {
-                followedUsers.add(followedUser);
-            }
+        for (String followingUser : followingUsers) {
+            followedUsers.add(followingUser);
         }
         return followedUsers;
     }

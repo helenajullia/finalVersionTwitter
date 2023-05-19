@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @RestController
@@ -27,12 +28,32 @@ public class ReplyController {
     @PostMapping("/replies")
     public ResponseEntity<?> createReply(@RequestBody Reply reply) {
         try {
-            replyService.createReply(reply);
-            return ResponseEntity.ok().build();
+            String postId = reply.getPostId();
+            Post post = postRepository.getPostById(postId);
+
+            // Check if the post exists
+            if (post != null) {
+                // Use reflection to set the post object on the reply
+                try {
+                    Field postField = Reply.class.getDeclaredField("post");
+                    postField.setAccessible(true);
+                    postField.set(reply, post);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    // Handle the exception as per your requirements
+                }
+
+                // Call the service method to create the reply
+                replyService.createReply(reply);
+
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.badRequest().body("Invalid post ID");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
     }
+
     @GetMapping("/posts/{postId}/replies")
     public List<Reply> getRepliesByPost(@PathVariable String postId) {
         return replyService.getRepliesByPostId(postId);

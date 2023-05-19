@@ -34,16 +34,16 @@ public class PostController {
     @GetMapping("/users/{username}/posts")
     public List<Post> getPostsByUser(@PathVariable String username) {
         User user = userRepository.getUserByUsername(username);
-        return postService.getPostsByUser(user);
+        return postService.getPostsByUser(username);
     }
 
     @GetMapping("/posts/followed/{username}")
     public List<Post> getPostsByFollowedUser(@PathVariable("username") String username) {
         List<Post> postsByFollowedUser = new ArrayList<>();
 
-        List<User> followedUsers = userService.getFollowedUsers(username);
+        List<String> followedUsers = userService.getFollowedUsers(username);
 
-        for (User followedUser : followedUsers) {
+        for (String followedUser : followedUsers) {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
             postsByFollowedUser.addAll(postsByUser);
         }
@@ -54,9 +54,9 @@ public class PostController {
     public List<Post> getFeed(@PathVariable("username") String username) {
         List<Post> postsByFollowedUser = new ArrayList<>();
 
-        List<User> followedUsers = userService.getFollowedUsers(username);
+        List<String> followedUsers = userService.getFollowedUsers(username);
 
-        for (User followedUser : followedUsers) {
+        for (String followedUser : followedUsers) {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
             postsByFollowedUser.addAll(postsByUser);
         }

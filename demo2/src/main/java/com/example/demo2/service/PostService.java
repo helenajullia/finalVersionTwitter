@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface PostService {
     void createPost(Post post);
-    List<Post> getPostsByUser(User user);
+    List<Post> getPostsByUser(String username);
     List<Post> getPostsByFollowedUsers(User user);
     Post getPostById(String postId);
     void likePost(String postId, String username);

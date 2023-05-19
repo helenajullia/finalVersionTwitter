@@ -1,13 +1,11 @@
-package com.example.demo2.model;
+package com.example.demo2.model.dto;
+
+import com.example.demo2.model.Post;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
-    private List<String> following;
-    private List<User> followers;
-    private List<Post> posts;
-
+public class UserDTO {
     private String username;
     private String firstName;
     private String lastName;
@@ -54,7 +52,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String firstName, String lastName, String email, String password){
+    public UserDTO(String username, String firstName, String lastName, String email, String password){
         this.username=username;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -74,25 +72,4 @@ public class User {
     }
 
 
-    public List<String> getFollowing() {
-        if (following == null) {
-            following = new ArrayList<>(); // Initialize the list if it is null
-        }
-        return following;
-    }
-
-    public void setFollowing(List<String> following) {
-        this.following = following;
-    }
-
-    public List<User> getFollowers() {
-        if (followers == null) {
-            followers = new ArrayList<>(); // Initialize the list if it is null
-        }
-        return followers;
-    }
-
-    public void setFollowers(List<User> followers) {
-        this.followers = followers;
-    }
 }

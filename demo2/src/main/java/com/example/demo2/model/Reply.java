@@ -6,7 +6,10 @@ public class Reply {
     private String replyId;
     private String content;
     private LocalDateTime timestamp;
-    private User user;
+    private String username;
+   // private User user;
+    private String postId;
+
     private Post post;
     private Boolean isPublic;
 
@@ -18,13 +21,13 @@ public class Reply {
         this.content = content;
     }
 
-    public User getUser() {
+   /* public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -42,8 +45,11 @@ public class Reply {
         this.replyId = replyId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+    public String getPostId() {
+        return postId;
     }
 
     public boolean isPublic() {
@@ -54,16 +60,29 @@ public class Reply {
         isPublic = aPublic;
     }
 
-    public Reply(String replyId, String content, LocalDateTime timestamp, User user, Post post, Boolean isPublic) {
-        this.replyId = replyId;
-        this.content = content;
-        this.timestamp = timestamp;
-        this.user = user;
-        this.post = post;
-        this.isPublic=isPublic;
+
+    public String getUsername() {
+        return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public Post getPost() {
         return post;
     }
+    public void setPost(Post post) {
+        this.post = post;
+    }
+    public Reply(String replyId, String content, LocalDateTime timestamp, String username, String postId, Post post, Boolean isPublic) {
+        this.replyId = replyId;
+        this.content = content;
+        this.timestamp = timestamp;
+        this.username = username;
+        this.postId = postId;
+        this.post = post;
+        this.isPublic = isPublic;
+    }
+
+
 }

@@ -38,7 +38,7 @@ public class UserController {
     }//localhost:8081/users/helenajullia/follow/mariussebastian
 
     @GetMapping("/users/{followerUsername}/followed-users")
-    public List<User> getFollowedUsers(@PathVariable String followerUsername) {
+    public List<String> getFollowedUsers(@PathVariable String followerUsername) {
         return userService.getFollowedUsers(followerUsername);
     }
 

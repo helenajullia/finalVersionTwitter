@@ -24,11 +24,11 @@ public class PostRepository {
         save(post);
     }
 
-    public List<Post> getPostsByUser(User user) {
+    public List<Post> getPostsByUser(String username) {
         List<Post> userPosts = new ArrayList<>();
 
         for (Post post : posts) {
-            if (post.getUsername().equals(user.getUsername())) {
+            if (post.getUsername().equals(username)) {
                 post.setLikes(getLikesByPostId(post.getId()));
                 userPosts.add(post);
             }
@@ -38,9 +38,9 @@ public class PostRepository {
 
     public List<Post> getPostsByFollowedUsers(User user) {
         List<Post> followedPosts = new ArrayList<>();
-        List<User> followedUsers = user.getFollowing();
+        List<String> followedUsers = user.getFollowing();
 
-        for (User followedUser : followedUsers) {
+        for (String followedUser : followedUsers) {
             List<Post> postsByUser = getPostsByUser(followedUser);
             followedPosts.addAll(postsByUser);
         }
@@ -49,13 +49,12 @@ public class PostRepository {
 
     public List<Post> getFeed(User user) {
         List<Post> followedPosts = new ArrayList<>();
-        List<User> followedUsers = user.getFollowing();
+        List<String> followedUsers = user.getFollowing();
 
-        for (User followedUser : followedUsers) {
+        for (String followedUser : followedUsers) {
             List<Post> postsByUser = getPostsByUser(followedUser);
             followedPosts.addAll(postsByUser);
         }
-
         return followedPosts;
     }
 

@@ -52,7 +52,7 @@ public class UserRepository {
         User followed = getUserByUsername(followedUsername);
 
         if (follower != null && followed != null) {
-            follower.getFollowing().add(followed); // Add the followed user to the follower's following list
+            follower.getFollowing().add(followedUsername); // Add the followed user to the follower's following list
         }
     }
 

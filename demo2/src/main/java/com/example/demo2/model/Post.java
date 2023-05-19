@@ -12,8 +12,10 @@ public class Post {
     private String content;
     private String username;
     private LocalDateTime timestamp;
-    private User user;
+   // private User user;
     private List<String> likes;
+
+    //private Post post;
     public String getContent() {
         return content;
     }
@@ -51,21 +53,29 @@ public class Post {
         this.content = content;
         this.username = username;
         this.timestamp = timestamp;
-        this.user=user;
+        //this.user=user;
         //this.likes = new ArrayList<>();
         this.likes = likes;
     }
 
-    public User getUser() {
+    /*public User getUser() {
         return user;
     }
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
     public List<String> getLikes() {
         return likes;
     }
     public void setLikes(List<String> likes) {
         this.likes = likes;
     }
+
+    /*public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }*/
 }

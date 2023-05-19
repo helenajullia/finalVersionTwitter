@@ -24,5 +24,5 @@ public interface UserService {
     List<User> searchUsers(String searchTerm);
     void followUser(String followerUsername, String followingUsername);
     void unfollowUser(String followerUsername, String followingUsername);
-    List<User> getFollowedUsers(String followerUsername);
+    List<String> getFollowedUsers(String followerUsername);
 }
