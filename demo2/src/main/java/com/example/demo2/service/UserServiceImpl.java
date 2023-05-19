@@ -95,4 +95,13 @@ public class UserServiceImpl implements UserService {
         }
         return followedUsers;
     }
+
+    public List<String> getFollowingUsers(String username) {
+        List<String> followers = getFollowers(username);
+        List<String> followingUsers = new ArrayList<>();
+        for (String follower : followers) {
+            followingUsers.add(follower);
+        }
+        return followingUsers;
+    }
 }

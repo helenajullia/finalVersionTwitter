@@ -9,13 +9,10 @@ public class Reply {
     private String content;
     private LocalDateTime timestamp;
     private String username;
-   // private User user;
     private String postId;
 
     private Post post;
     private Boolean isPublic;
-
-    private List<Like> likes;
 
     public String getContent() {
         return content;
@@ -24,14 +21,6 @@ public class Reply {
     public void setContent(String content) {
         this.content = content;
     }
-
-   /* public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }*/
 
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -86,13 +75,5 @@ public class Reply {
         this.postId = postId;
         this.post = post;
         this.isPublic = isPublic;
-    }
-
-    public List<Like> getLikes() {
-        return likes != null ? likes : Collections.emptyList();
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
     }
 }

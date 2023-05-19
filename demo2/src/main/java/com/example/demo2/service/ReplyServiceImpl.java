@@ -41,7 +41,6 @@ public class ReplyServiceImpl implements ReplyService {
         if (post != null) {
             return replyRepository.getRepliesByPostId(postId);
         } else {
-            // Handle the case when the post does not exist
             return Collections.emptyList();
         }
     }

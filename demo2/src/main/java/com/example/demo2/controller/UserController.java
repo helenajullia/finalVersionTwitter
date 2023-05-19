@@ -42,7 +42,12 @@ public class UserController {
         return userService.getFollowedUsers(followerUsername);
     }
 
-   /* @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping("/users/{followerUsername}/following-users")
+    public List<String> getFollowingUsers(@PathVariable String followerUsername) {
+        return userService.getFollowingUsers(followerUsername);
+    }
+
+    @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_XML_VALUE)
     public User getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
@@ -52,12 +57,7 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
-    /*@PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void registerUser(@RequestBody User user) {
-        userService.registerUser(user);
-    }*/
-
-    @PutMapping(value = "/users/{username}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@PutMapping(value = "/users/{username}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUser(@PathVariable String username, @RequestBody User user) {
         userService.updateUser(username, user);
     }
@@ -65,14 +65,12 @@ public class UserController {
     @PatchMapping(value = "/users/{username}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void patchUser(@PathVariable String username, @RequestBody Map<String, String> partialUser) {
         userService.patchUser(username, partialUser);
-    }
-
+    }*/
 
     @DeleteMapping(value = "/users/unregister/{username}")
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }
-
 
     @PostMapping("/users/{followerUsername}/unfollow/{followingUsername}")
     public void unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
