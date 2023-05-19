@@ -2,6 +2,7 @@
 
 package com.example.demo2.service;
 
+        import com.example.demo2.model.Like;
         import com.example.demo2.model.Post;
         import com.example.demo2.model.User;
         import com.example.demo2.repository.PostRepository;
@@ -30,7 +31,12 @@ public class PostServiceImpl implements PostService {
     public List<String> getLikesByPostId(String postId) {
         Post post = getPostById(postId);
         if (post != null) {
-            return post.getLikes();
+            List<Like> likes = post.getLikes();
+            List<String> usernames = new ArrayList<>();
+            for (Like like : likes) {
+                usernames.add(like.getUsername());
+            }
+            return usernames;
         } else {
             return Collections.emptyList();
         }
@@ -41,13 +47,27 @@ public class PostServiceImpl implements PostService {
 
         for (Post post : postRepository.getAllPosts()) {
             if (post.getUsername().equals(username)) {
-                post.setUsername(username); // Set the username directly
-                post.setLikes(getLikesByPostId(post.getId()));
+                post.setUsername(username);
+
+                // Retrieve the likes for the post using postId
+                List<String> likes = getLikesByPostId(post.getId());
+                List<Like> likeObjects = new ArrayList<>();
+
+                // Create Like objects from the usernames and postId
+                for (String likeUsername : likes) {
+                    Like like = new Like(likeUsername, post.getId());
+                    likeObjects.add(like);
+                }
+
+                // Set the likes for the post
+                post.setLikes(likeObjects);
+
                 postsByUser.add(post);
             }
         }
         return postsByUser;
     }
+
 
     @Override
     public List<Post> getPostsByFollowedUsers(User user) {
@@ -72,11 +92,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void likePost(String postId, String username) {
+    public void likePost(String postId, Like like) {
         Post post = postRepository.getPostById(postId);
         if (post != null) {
-            List<String> likes = post.getLikes();
-            likes.add(username);
+            List<Like> likes = post.getLikes();
+            likes.add(like);
             // Save the updated likes to the post
             post.setLikes(likes);
             postRepository.updatePost(post);

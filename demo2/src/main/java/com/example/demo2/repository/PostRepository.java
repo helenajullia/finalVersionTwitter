@@ -1,5 +1,6 @@
 package com.example.demo2.repository;
 
+import com.example.demo2.model.Like;
 import com.example.demo2.model.Post;
 import com.example.demo2.model.User;
 import org.springframework.stereotype.Repository;
@@ -29,7 +30,15 @@ public class PostRepository {
 
         for (Post post : posts) {
             if (post.getUsername().equals(username)) {
-                post.setLikes(getLikesByPostId(post.getId()));
+                List<String> likes = getLikesByPostId(post.getId());
+                List<Like> likeObjects = new ArrayList<>();
+
+                for (String likeUsername : likes) {
+                    Like like = new Like(likeUsername, post.getId());
+                    likeObjects.add(like);
+                }
+
+                post.setLikes(likeObjects);
                 userPosts.add(post);
             }
         }
@@ -74,7 +83,12 @@ public class PostRepository {
     public List<String> getLikesByPostId(String postId) {
         Post post = getPostById(postId);
         if (post != null) {
-            return post.getLikes();
+            List<Like> likes = post.getLikes();
+            List<String> usernames = new ArrayList<>();
+            for (Like like : likes) {
+                usernames.add(like.getUsername());
+            }
+            return usernames;
         } else {
             return Collections.emptyList();
         }

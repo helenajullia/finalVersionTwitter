@@ -1,5 +1,6 @@
 package com.example.demo2.controller;
 
+import com.example.demo2.model.Like;
 import com.example.demo2.model.Post;
 import com.example.demo2.model.User;
 import com.example.demo2.repository.PostRepository;
@@ -64,7 +65,9 @@ public class PostController {
     }
 
     @PutMapping("/posts/{postId}/{username}/like")
-    public void likePost(@PathVariable String postId,@PathVariable String username) {
-        postService.likePost(postId,username);
+    public void likePost(@PathVariable String postId, @PathVariable String username) {
+        Like like = new Like(username, postId);
+        postService.likePost(postId, like);
     }
+
 }

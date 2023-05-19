@@ -1,5 +1,6 @@
 package com.example.demo2.service;
 
+import com.example.demo2.model.Like;
 import com.example.demo2.model.Post;
 import com.example.demo2.model.User;
 import org.springframework.stereotype.Service;
@@ -11,5 +12,5 @@ public interface PostService {
     List<Post> getPostsByUser(String username);
     List<Post> getPostsByFollowedUsers(User user);
     Post getPostById(String postId);
-    void likePost(String postId, String username);
+    void likePost(String postId, Like like);
 }

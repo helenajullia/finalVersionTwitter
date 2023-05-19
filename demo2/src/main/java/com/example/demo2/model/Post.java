@@ -13,7 +13,7 @@ public class Post {
     private String username;
     private LocalDateTime timestamp;
    // private User user;
-    private List<String> likes;
+    private List<Like> likes;
 
     //private Post post;
     public String getContent() {
@@ -48,7 +48,7 @@ public class Post {
         this.id = id;
     }
 
-    public Post(String id, String content, String username, LocalDateTime timestamp, User user, List<String> likes) {
+    public Post(String id, String content, String username, LocalDateTime timestamp, User user, List<Like> likes) {
         this.id=id;
         this.content = content;
         this.username = username;
@@ -64,13 +64,13 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }*/
-    public List<String> getLikes() {
+    public List<Like> getLikes() {
         return likes;
     }
-    public void setLikes(List<String> likes) {
+
+    public void setLikes(List<Like> likes) {
         this.likes = likes;
     }
-
     /*public Post getPost() {
         return post;
     }

@@ -1,6 +1,8 @@
 package com.example.demo2.model;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 public class Reply {
     private String replyId;
@@ -12,6 +14,8 @@ public class Reply {
 
     private Post post;
     private Boolean isPublic;
+
+    private List<Like> likes;
 
     public String getContent() {
         return content;
@@ -84,5 +88,11 @@ public class Reply {
         this.isPublic = isPublic;
     }
 
+    public List<Like> getLikes() {
+        return likes != null ? likes : Collections.emptyList();
+    }
 
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
 }
