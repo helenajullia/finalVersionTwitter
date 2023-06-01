@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 //    List<User> findAll();
      User findByUsername(String username);
 
-    User getUserByUsername(User username);
+    User getUserByUsername(String username);
 
     @Modifying
     @Query("UPDATE User u SET u.username = :#{#user.username}, u.firstName = :#{#user.firstName}, u.lastName = :#{#user.lastName}, u.email = :#{#user.email}, u.password = :#{#user.password} WHERE u.username = :username")

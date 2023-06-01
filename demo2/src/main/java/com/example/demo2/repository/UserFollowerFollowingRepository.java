@@ -30,4 +30,10 @@ public interface UserFollowerFollowingRepository extends JpaRepository<UserFollo
 
     @Query("SELECT u FROM UserFollowerFollowing u WHERE u.follower = :follower AND u.following = :following")
     UserFollowerFollowing findByFollowerAndFollowing(@Param("follower") User follower, @Param("following") User following);
+
+
+
+
 }
+
+

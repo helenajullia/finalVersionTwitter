@@ -11,7 +11,7 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUserByUsername(User username);
+    User getUserByUsername(String username);
 
     void registerUser(User user);
 

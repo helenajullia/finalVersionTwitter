@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
     @Override
-    public User getUserByUsername(User username) {
+    public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
     @Override

@@ -41,11 +41,11 @@ public class PostController {
         postService.createPost(post);
     }
 
-    @GetMapping("/users/{username}/posts")
-    public List<Post> getPostsByUser(@PathVariable User username) {
+    @GetMapping("/posts/{username}")
+        public List<Post> getPostsByUser(@PathVariable String username) {
         User user = userRepository.getUserByUsername(username);
-        return postService.getPostsByUser(username);
-    }
+        return postService.getPostsByUser(user);
+}
 
     @GetMapping("/posts/followed/{username}")
     public List<Post> getPostsByFollowedUser(@PathVariable("username") String username) {

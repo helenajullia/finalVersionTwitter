@@ -2,6 +2,8 @@ package com.example.demo2.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -57,7 +59,7 @@ public class User {
     @ManyToMany(mappedBy = "followers")
     private List<User> following;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "username")
     private List<Post> posts;
 
