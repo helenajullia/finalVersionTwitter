@@ -16,7 +16,7 @@ public class Post {
     @Column(name="content",nullable = false)
     private String content;
     @ManyToOne
-    @JoinColumn(name="username",nullable = false)
+    @JoinColumn(name="username")
     private User username;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -27,12 +27,11 @@ public class Post {
 
     public Post(){}
 
-    public Post(Long id, String content,/* String username,*/ LocalDateTime timestamp, List<Like> likes) {
+    public Post(Long id, LocalDateTime timestamp, String content ,User username) {
         this.id=id;
-        this.content = content;
-        //this.username = username;
         this.timestamp = timestamp;
-        this.likes = likes;
+        this.content = content;
+        this.username = username;
     }
 
     public String getContent() {
@@ -67,9 +66,9 @@ public class Post {
         this.likes = likes;
     }
 
-    public User getUser() {return username;}
+    public User  getUsername() {return username;}
 
-    public void setUser(User user) {
-        this.username = user;
+    public void setUsername(User  username) {
+        this.username = username;
     }
 }

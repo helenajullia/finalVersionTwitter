@@ -10,7 +10,7 @@ import java.util.List;
 public interface PostService {
     void savePost(Post post);
 
-//    void createPost(Post post);
+    void createPost(Post post);
 
     List<String> getLikesByPostId(Long postId);
 

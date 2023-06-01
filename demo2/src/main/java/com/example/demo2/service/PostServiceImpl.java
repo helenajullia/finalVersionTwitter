@@ -6,6 +6,8 @@ package com.example.demo2.service;
         import com.example.demo2.model.Post;
         import com.example.demo2.model.User;
         import com.example.demo2.repository.PostRepository;
+        import jakarta.transaction.Transactional;
+        import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
 
         import java.util.ArrayList;
@@ -15,26 +17,26 @@ package com.example.demo2.service;
 @Service
 public class PostServiceImpl implements PostService {
 
-
-public PostServiceImpl (){};
+    public PostServiceImpl (){};
+    @Autowired
+    public PostServiceImpl(PostRepository postRepository){
+        this.postRepository = postRepository;
+    }
+    @Autowired
     private UserFollowerFollowingService userFollowerFollowingService;
-
+    @Autowired
     private PostRepository postRepository;
-@Override
+    @Override
     public void savePost(Post post) {
         postRepository.save(post);
     }
 
 
-
-    public PostServiceImpl(PostRepository postRepository){
-        this.postRepository = postRepository;
+    @Transactional
+    public void createPost(Post post) {
+        User user = post.getUsername(); // Fetch the User object from the post parameter
+        postRepository.save(post);
     }
-//@Override
-//    public void createPost(Post post) {
-//        postRepository.createPost(post);
-//    }
-
 
 
    /* public List<String> getLikesByPostId(String postId) {
@@ -115,11 +117,11 @@ public PostServiceImpl (){};
     public List<String> getLikesByPostId(Long postId) {
         return postRepository.getLikesByPostId(postId);
     }
-@Override
+    @Override
     public List<Post> getPostsByUser(User username) {
         return postRepository.findPostByUsername(username);
     }
-@Override
+    @Override
     public List<Post> getPostsByFollowedUser(String username) {
         List<Post> postsByFollowedUsers = new ArrayList<>();
         List<User> followedUsers = userFollowerFollowingService.getFollowedUsers(username);
@@ -129,7 +131,7 @@ public PostServiceImpl (){};
 
         return postsByFollowedUsers;
     }
-@Override
+    @Override
     public Post getPostById(Long postId) {
         Optional<Post> optionalPost = postRepository.findById(postId);
         return optionalPost.orElse(null);

@@ -2,6 +2,7 @@ package com.example.demo2.repository;
 
 import com.example.demo2.model.Post;
 import com.example.demo2.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,13 +15,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, String> {
 
     // Create a new post
-    @Override
     Post save(Post post);
 
-//    void createPost(Post post);
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO posts (id, timestamp, content, username) " +
+            "VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+    void createPost(
+            Long id,
+            LocalDateTime timestamp,
+            String content,
+            User username
+    );
 
     // Retrieve posts by username
     List<Post> findPostByUsername(User username);
@@ -34,6 +43,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Post getPostById(Long id);
 
     Optional<Post> findById(Long id);
+
 
 
     // Retrieve likes by post ID

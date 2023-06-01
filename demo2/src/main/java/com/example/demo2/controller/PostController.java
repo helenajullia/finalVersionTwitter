@@ -22,7 +22,7 @@ import java.util.List;
 public class PostController {
     @Autowired
     public PostController(){};
-
+    @Autowired
     private PostService postService;
     @Autowired
     private UserRepository userRepository;
@@ -36,10 +36,10 @@ public class PostController {
         this.postService = postService;
     }
 
-//    @PostMapping(value="/posts")
-//    public void createPost(@RequestBody Post post) {
-//        postService.createPost(post);
-//    }
+    @PostMapping(value="/posts")
+    public void createPost(@RequestBody Post post) {
+        postService.createPost(post);
+    }
 
     @GetMapping("/users/{username}/posts")
     public List<Post> getPostsByUser(@PathVariable User username) {
