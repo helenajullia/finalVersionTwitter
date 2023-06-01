@@ -8,9 +8,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface PostService {
-    void createPost(Post post);
-    List<Post> getPostsByUser(String username);
-    List<Post> getPostsByFollowedUsers(User user);
-    Post getPostById(String postId);
-    void likePost(String postId, Like like);
+    void savePost(Post post);
+
+//    void createPost(Post post);
+
+    List<String> getLikesByPostId(Long postId);
+
+    List<Post> getPostsByUser(User username);
+
+    List<Post> getPostsByFollowedUser(String username);
+
+    Post getPostById(Long postId);
+
+    void likePost(Long postId, Like like);
 }

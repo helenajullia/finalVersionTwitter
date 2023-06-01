@@ -2,17 +2,64 @@ package com.example.demo2.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import java.util.UUID;
+@Entity
+@Table(name="users")
 public class User {
-    private List<String> following;
-    private List<User> followers;
-    private List<Post> posts;
 
+    @Id
+    @Column(name = "username", nullable = false,unique = true)
     private String username;
+    @Column(name = "firstname", nullable = false)
     private String firstName;
+    @Column(name = "lastname", nullable = false)
     private String lastName;
+    @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "password", nullable = false)
     private String password;
+
+    public User() {
+        followers = new ArrayList<>();
+        posts = new ArrayList<>();
+    }
+
+    public User(String username, String firstName, String lastName, String email, String password){
+        this.username=username;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
+        this.password=password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username=" + username +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "userfollowersfollowing",
+            joinColumns = @JoinColumn(name = "following_username"),
+            inverseJoinColumns = @JoinColumn(name = "follower_username")
+    )
+    private List<User> followers;
+
+    @ManyToMany(mappedBy = "followers")
+    private List<User> following;
+
+
+    @OneToMany(mappedBy = "username")
+    private List<Post> posts;
 
     public String getUsername() {
         return username;
@@ -54,45 +101,33 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String firstName, String lastName, String email, String password){
-        this.username=username;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.email=email;
-        this.password=password;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username=" + username +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-
-    public List<String> getFollowing() {
+    public List<User> getFollowing() {
         if (following == null) {
-            following = new ArrayList<>(); // Initialize the list if it is null
+            following = new ArrayList<>();
         }
         return following;
     }
 
-    public void setFollowing(List<String> following) {
+    public void setFollowing(List<User> following) {
         this.following = following;
     }
 
     public List<User> getFollowers() {
         if (followers == null) {
-            followers = new ArrayList<>(); // Initialize the list if it is null
+            followers = new ArrayList<>();
         }
         return followers;
     }
 
     public void setFollowers(List<User> followers) {
         this.followers = followers;
+    }
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

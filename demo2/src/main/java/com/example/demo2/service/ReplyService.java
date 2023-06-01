@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface ReplyService {
-    void createReply(Reply reply);
-    List<Reply> getRepliesByPostId(String postId);
-    Post getPostById(String postId);
+//    void createReply(Reply reply);
+    List<Reply> getRepliesByPostId(Long postId);
+    Post getPostById(Long postId);
 }

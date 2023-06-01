@@ -6,29 +6,38 @@ package com.example.demo2.service;
         import com.example.demo2.model.Post;
         import com.example.demo2.model.User;
         import com.example.demo2.repository.PostRepository;
-        import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
-        import com.example.demo2.service.PostService;
 
         import java.util.ArrayList;
-        import java.util.Collections;
         import java.util.List;
+        import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
-    @Autowired
-    private UserService userService;
-    private final PostRepository postRepository;
 
-    public PostServiceImpl(PostRepository postRepository) {
+
+public PostServiceImpl (){};
+    private UserFollowerFollowingService userFollowerFollowingService;
+
+    private PostRepository postRepository;
+@Override
+    public void savePost(Post post) {
+        postRepository.save(post);
+    }
+
+
+
+    public PostServiceImpl(PostRepository postRepository){
         this.postRepository = postRepository;
     }
+//@Override
+//    public void createPost(Post post) {
+//        postRepository.createPost(post);
+//    }
 
-    public void createPost(Post post) {
-        postRepository.createPost(post);
-    }
 
-    public List<String> getLikesByPostId(String postId) {
+
+   /* public List<String> getLikesByPostId(String postId) {
         Post post = getPostById(postId);
         if (post != null) {
             List<Like> likes = post.getLikes();
@@ -78,7 +87,7 @@ public class PostServiceImpl implements PostService {
     public List<Post> getPostsByFollowedUser(String username) {
         List<Post> postsByFollowedUser = new ArrayList<>();
 
-        List<String> followedUsers = userService.getFollowedUsers(username);
+        List<String> followedUsers = userFollowerFollowingService.getFollowedUsers(username);
 
         for (String followedUser : followedUsers) {
             List<Post> postsByUser = postRepository.getPostsByUser(followedUser);
@@ -88,18 +97,54 @@ public class PostServiceImpl implements PostService {
         return postsByFollowedUser;
     }
     public Post getPostById(String postId) {
-        return postRepository.getPostById(postId);
+        return postRepositoryInMemo.getPostById(postId);
     }
 
     @Override
     public void likePost(String postId, Like like) {
-        Post post = postRepository.getPostById(postId);
+        Post post = postRepositoryInMemo.getPostById(postId);
         if (post != null) {
             List<Like> likes = post.getLikes();
             likes.add(like);
             // Save the updated likes to the post
             post.setLikes(likes);
-            postRepository.updatePost(post);
+            postRepositoryInMemo.updatePost(post);
+        }
+    }*/
+
+    public List<String> getLikesByPostId(Long postId) {
+        return postRepository.getLikesByPostId(postId);
+    }
+@Override
+    public List<Post> getPostsByUser(User username) {
+        return postRepository.findPostByUsername(username);
+    }
+@Override
+    public List<Post> getPostsByFollowedUser(String username) {
+        List<Post> postsByFollowedUsers = new ArrayList<>();
+        List<User> followedUsers = userFollowerFollowingService.getFollowedUsers(username);
+
+
+    postsByFollowedUsers =  postRepository.findByUsernameIn(followedUsers);
+
+        return postsByFollowedUsers;
+    }
+@Override
+    public Post getPostById(Long postId) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        return optionalPost.orElse(null);
+    }
+
+    @Override
+    public void likePost(Long postId, Like like) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            List<Like> likes = post.getLikes();
+            likes.add(like);
+            // Save the updated likes to the post
+            post.setLikes(likes);
+            postRepository.save(post);
         }
     }
 }

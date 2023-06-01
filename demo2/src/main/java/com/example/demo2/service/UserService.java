@@ -11,20 +11,13 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUserByUsername(String username);
+    User getUserByUsername(User username);
 
     void registerUser(User user);
 
     void updateUser(String username, User user);
 
-    void patchUser(String username, Map<String, String> partialUser);
-
     void deleteUser(String username);
 
     List<User> searchUsers(String searchTerm);
-    void followUser(String followerUsername, String followingUsername);
-    void unfollowUser(String followerUsername, String followingUsername);
-    List<String> getFollowedUsers(String followerUsername);
-
-    List<String> getFollowingUsers(String followingUsername);
 }

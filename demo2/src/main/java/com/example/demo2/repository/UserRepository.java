@@ -1,79 +1,37 @@
 package com.example.demo2.repository;
+
 import com.example.demo2.model.User;
-import com.example.demo2.advice.exception.UserNotFoundException;
+import com.example.demo2.model.UserFollowerFollowing;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Repository
-public class UserRepository {
-    private Map<String, User> users;
+public interface UserRepository extends JpaRepository<User, String> {
+//    User save(User user);
+//
+//    List<User> findAll();
+     User findByUsername(String username);
 
-    public UserRepository() {
-        users = new HashMap<>();
-    }
+    User getUserByUsername(User username);
 
-    public boolean isUsernameTaken(String username) {
-        return users.containsKey(username);
-    }
+    @Modifying
+    @Query("UPDATE User u SET u.username = :#{#user.username}, u.firstName = :#{#user.firstName}, u.lastName = :#{#user.lastName}, u.email = :#{#user.email}, u.password = :#{#user.password} WHERE u.username = :username")
+    void updateUser(@Param("username") String username, @Param("user") User user);
 
-    public void addUser(User user) {
-        users.put(user.getUsername(), user);
-    }
+    @Modifying
+    @Query("DELETE FROM User u WHERE u.username = :username")
+    void deleteUser(@Param("username") String username);
 
-    public void deleteUser(String username) {
-        users.remove(username);
-    }
+    @Query("SELECT u FROM User u WHERE lower(u.username) = lower(:searchTerm) " +
+            "OR lower(u.firstName) = lower(:searchTerm) " +
+            "OR lower(u.lastName) = lower(:searchTerm)")
+    List<User> searchUsers(@Param("searchTerm") String searchTerm);
 
-    public User getUserByUsername(String username) {
-        for (User user : users.values()) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        throw new UserNotFoundException(String.format("User with username %s was not found", username));
-    }
-
-    public List<User> getAllUsers() {
-        return new ArrayList<>(users.values());
-    }
-
-    public void createUser(User user) {
-        users.put(user.getUsername(), user);
-    }
-
-    public void updateUser(String username, User user) {
-        getUserByUsername(username);
-        user.setUsername(username);
-        users.put(username, user);
-    }
-    public void followUser(String followerUsername, String followedUsername) {
-        User follower = getUserByUsername(followerUsername);
-        User followed = getUserByUsername(followedUsername);
-
-        if (follower != null && followed != null) {
-            follower.getFollowing().add(followedUsername); // Add the followed user to the follower's following list
-        }
-    }
-
-    public void unfollowUser(String followerUsername, String followingUsername) {
-        User follower = users.get(followerUsername);
-        User following = users.get(followingUsername);
-
-        if (follower != null && following != null) {
-            follower.getFollowing().remove(following.getUsername());
-
-        }
-    }
-
-    public List<String> getFollowers(String username) {
-        List<String> followers = new ArrayList<>();
-
-        for (User user : users.values()) {
-            if (user.getFollowing().contains(username)) {
-                followers.add(user.getUsername());
-            }
-        }
-        return followers;
-    }
 }

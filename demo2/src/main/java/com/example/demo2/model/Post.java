@@ -1,32 +1,46 @@
 package com.example.demo2.model;
 
-import com.example.demo2.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Table(name="posts")
 public class Post {
-    private String id;
-    private String content;
-    private String username;
+    @Id
+    @Column(name="id",nullable = false,unique = true)
+    private Long id;
+    @Column(name="timestamp",nullable = false)
     private LocalDateTime timestamp;
+
+    @Column(name="content",nullable = false)
+    private String content;
+    @ManyToOne
+    @JoinColumn(name="username",nullable = false)
+    private User username;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies;
+
+    public Post(){}
+
+    public Post(Long id, String content,/* String username,*/ LocalDateTime timestamp, List<Like> likes) {
+        this.id=id;
+        this.content = content;
+        //this.username = username;
+        this.timestamp = timestamp;
+        this.likes = likes;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public LocalDateTime getTimestamp() {
@@ -37,20 +51,12 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Post(String id, String content, String username, LocalDateTime timestamp, User user, List<Like> likes) {
-        this.id=id;
-        this.content = content;
-        this.username = username;
-        this.timestamp = timestamp;
-        this.likes = likes;
     }
 
     public List<Like> getLikes() {
@@ -59,5 +65,11 @@ public class Post {
 
     public void setLikes(List<Like> likes) {
         this.likes = likes;
+    }
+
+    public User getUser() {return username;}
+
+    public void setUser(User user) {
+        this.username = user;
     }
 }
