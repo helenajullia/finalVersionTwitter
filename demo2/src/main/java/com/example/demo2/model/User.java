@@ -47,7 +47,7 @@ public class User {
                 ", password='" + password + '\'' +
                 '}';
     }
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "userfollowersfollowing",
@@ -55,7 +55,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "follower_username")
     )
     private List<User> followers;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "followers")
     private List<User> following;
 

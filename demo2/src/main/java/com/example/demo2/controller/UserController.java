@@ -24,7 +24,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/users/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public void register(@RequestBody User user) {
         userService.registerUser(user);
     }
@@ -49,10 +49,10 @@ public class UserController {
         userFollowerFollowingService.unfollowUser(followerUsername, followingUsername);
     }
 
-    @DeleteMapping(value = "/users/unregister/{username}")
-    public void deleteUser(@PathVariable String username) {
-        userService.deleteUser(username);
-    }
+//    @DeleteMapping(value = "/users/unregister/{username}")
+//    public void deleteUser(@PathVariable String username) {
+//        userService.deleteUser(username);
+//    }
 
 //    @GetMapping("/users/{followerUsername}/followed-users")
 //    public List<User> getFollowedUsers(@PathVariable String followerUsername) {

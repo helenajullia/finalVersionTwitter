@@ -28,8 +28,9 @@ public class PostController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+    @Autowired
     private PostRepository postRepository;
-
+    @Autowired
     private UserFollowerFollowingService userFollowerFollowingService;
 
     public PostController(PostService postService) {
