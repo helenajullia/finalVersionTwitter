@@ -20,5 +20,5 @@ public interface PostService {
 
     Post getPostById(Long postId);
 
-    void likePost(Long postId, Like like);
+    void likePost(Long postId, Like like, String username);
 }

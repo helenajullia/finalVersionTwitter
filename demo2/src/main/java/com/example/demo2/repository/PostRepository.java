@@ -1,5 +1,6 @@
 package com.example.demo2.repository;
 
+import com.example.demo2.model.Like;
 import com.example.demo2.model.Post;
 import com.example.demo2.model.User;
 import jakarta.transaction.Transactional;
@@ -17,9 +18,19 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post, String> {
 
+    Like save(Like like);
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO likes (id, post_id, username) " +
+            "VALUES (?1, ?2, ?3)", nativeQuery = true)
+    void createLike(
+            Long id,
+            Long post_id,
+            User username
+    );
+
     // Create a new post
     Post save(Post post);
-
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO posts (id, timestamp, content, username) " +

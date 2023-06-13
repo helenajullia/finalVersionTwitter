@@ -15,21 +15,22 @@ import java.util.List;
 
 @Service
 public class ReplyServiceImpl implements ReplyService {
-    @Autowired
-    public ReplyServiceImpl(){};
-    private ReplyRepository replyRepository;
-    private PostRepository postRepository;
 
+    public ReplyServiceImpl(){};
+    @Autowired
+    private ReplyRepository replyRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
     public ReplyServiceImpl(ReplyRepository replyRepository) {
         this.replyRepository = replyRepository;
     }
 
-//    @Override
-//    public void createReply(Reply reply) {
-//        reply.setTimestamp(LocalDateTime.now());
-//        replyRepository.createReply(reply);
-//    }
 
+    public void createReply(Reply reply) {
+        reply.setTimestamp(LocalDateTime.now());
+        replyRepository.save(reply);
+    }
 
     @Override
     public Post getPostById(Long postId) {

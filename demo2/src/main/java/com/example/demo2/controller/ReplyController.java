@@ -17,39 +17,40 @@ import java.util.List;
 public class ReplyController {
 
     public ReplyController(){};
-
+    @Autowired
     private ReplyService replyService;
-
+    @Autowired
     private PostRepository postRepository;
-
+    @Autowired
     public ReplyController(ReplyService replyService, PostRepository postRepository) {
         this.replyService = replyService;
         this.postRepository = postRepository;
     }
 
-//    @PostMapping("/replies")
-//    public ResponseEntity<?> createReply(@RequestBody Reply reply) {
-//        try {
-//            Long postId = reply.getPost().getId();
-//            Post post = postRepository.getPostById(postId);
-//
-//            if (post != null) {
-//                try {
-//                    Field postField = Reply.class.getDeclaredField("post");
-//                    postField.setAccessible(true);
-//                    postField.set(reply, post);
-//                } catch (NoSuchFieldException | IllegalAccessException e) {
-//                    e.printStackTrace();
-//                }
-//                replyService.createReply(reply);
-//                return ResponseEntity.ok().build();
-//            } else {
-//                return ResponseEntity.badRequest().body("Invalid post ID");
-//            }
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
-//        }
-//    }
+    @PostMapping("/replies")
+    public ResponseEntity<?> createReply(@RequestBody Reply reply) {
+        try {
+            Long postId = reply.getPost().getId();
+            Post post = postRepository.getPostById(postId);
+
+            if (post != null) {
+                try {
+                    Field postField = Reply.class.getDeclaredField("post");
+                    postField.setAccessible(true);
+                    postField.set(reply, post);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                replyService.createReply(reply);
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.badRequest().body("Invalid post ID");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Print the stack trace
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
 
     @GetMapping("/posts/{postId}/replies")
     public List<Reply> getRepliesByPost(@PathVariable Long postId) {

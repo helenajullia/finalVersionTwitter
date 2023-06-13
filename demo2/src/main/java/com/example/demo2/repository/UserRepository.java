@@ -14,9 +14,6 @@ import java.util.Set;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-//    User save(User user);
-//
-//    List<User> findAll();
      User findByUsername(String username);
 
     User getUserByUsername(String username);

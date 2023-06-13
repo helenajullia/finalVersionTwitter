@@ -1,11 +1,12 @@
 package com.example.demo2.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.JoinColumnOrFormula;
 
 import java.util.List;
 import java.util.UUID;
-
+@Data
 @Entity
 @Table(name="userfollowersfollowing")
 public class UserFollowerFollowing {
@@ -22,19 +23,6 @@ public class UserFollowerFollowing {
 
     public UserFollowerFollowing(){}
 
-    public UserFollowerFollowing(Long id, User follower, User following) {
-        this.id = id;
-        this.follower = follower;
-        this.following = following;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFollowerUsername() {
         return follower.getUsername();

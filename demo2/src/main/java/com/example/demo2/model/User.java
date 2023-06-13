@@ -29,24 +29,7 @@ public class User {
         posts = new ArrayList<>();
     }
 
-    public User(String username, String firstName, String lastName, String email, String password){
-        this.username=username;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.email=email;
-        this.password=password;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username=" + username +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -70,7 +53,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getFirstName() {
         return firstName;
     }

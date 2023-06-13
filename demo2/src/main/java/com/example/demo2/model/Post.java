@@ -1,9 +1,13 @@
 package com.example.demo2.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+@Data
 @Entity
 @Table(name="posts")
 public class Post {
@@ -27,48 +31,4 @@ public class Post {
 
     public Post(){}
 
-    public Post(Long id, LocalDateTime timestamp, String content ,User username) {
-        this.id=id;
-        this.timestamp = timestamp;
-        this.content = content;
-        this.username = username;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
-    }
-
-    public User  getUsername() {return username;}
-
-    public void setUsername(User  username) {
-        this.username = username;
-    }
 }

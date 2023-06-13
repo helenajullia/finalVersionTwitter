@@ -28,23 +28,6 @@ public class UserFollowerFollowingServiceImpl implements UserFollowerFollowingSe
         userFollowerFollowingRepository.save(userFollowerFollowing);
     }
 
-//    @Override
-//    public void unfollowUser(String followerUsername, String followingUsername) {
-//        List<UserFollowerFollowing> followerFollowings = userFollowerFollowingRepository.findByFollowerUsername(followerUsername);
-//        if (!followerFollowings.isEmpty()) {
-//            UserFollowerFollowing followerFollowing = followerFollowings.get(0);
-//            String followingUsernames = followerFollowing.getFollowingUsername();
-//
-//            if (followingUsernames.contains(followingUsername)) {
-//                followingUsernames = followingUsernames.replace(followingUsername, "");
-//                User updatedFollowingUser = new User();
-//                updatedFollowingUser.setUsername(followingUsernames);
-//                followerFollowing.setFollowingUsername(updatedFollowingUser);
-//                userFollowerFollowingRepository.save(followerFollowing);
-//            }
-//        }
-//    }
-
     @Override
     public void unfollowUser(String followerUsername, String followingUsername) {
         User follower = userRepository.findByUsername(followerUsername);
